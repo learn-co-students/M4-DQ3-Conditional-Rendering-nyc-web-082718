@@ -3,7 +3,40 @@ import MenuBar from '../components/MenuBar.js'
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
+  state = {
+    active: null
+  }
 
+  setActive = (event) => {
+    this.setState({
+      active: event.target.id
+    })
+  }
+
+  readActive = () => {
+    return this.state.active
+  }
+
+  displayActive = () => {
+    console.log(this.state)
+    switch (this.state.active) {
+      case 'profile':
+        return <Profile />
+        break;
+      case 'photo':
+        return <Photos />
+        break;
+      case 'cocktail':
+        return <Cocktails />
+        break;
+      case 'pokemon':
+        return <Pokemon />
+        break;
+      default:
+        return null
+        break;
+    }
+  }
 
   render() {
 
@@ -13,12 +46,13 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
-
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar
+          setter={this.setActive}
+          getter={this.readActive}
+        />
+        {this.displayActive()}
       </div>
     )
   }
